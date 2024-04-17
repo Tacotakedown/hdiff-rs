@@ -11,10 +11,11 @@ pub fn diff_files(
     old_path: &str,
     new_path: &str,
     out_diff_file: &str,
-) -> Result<Output, std::io::Error> {
-    execute_hdiffz(&[old_path, new_path, out_diff_file])
+) -> Result<ExitStatus, std::io::Error> {
+    Command::new("hdiffz")
+        .args(&[old_path, new_path, out_diff_file])
+        .status()
 }
-
 // Compress Function
 // Command: hdiffz -c-... "" newPath outDiffFile
 pub fn compress(new_path: &str, out_diff_file: &str) -> Result<Output, std::io::Error> {
